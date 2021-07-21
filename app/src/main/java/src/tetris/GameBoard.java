@@ -1,7 +1,7 @@
-package src.utilities;
+package src.tetris;
 
 import java.util.Arrays;
-import src.shapes.*;
+import src.tetris.shapes.*;
 
 public class GameBoard {
     static final int GAME_BOARD_HEIGHT = 20;

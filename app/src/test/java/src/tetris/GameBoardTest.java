@@ -1,8 +1,7 @@
-package src.utilities;
+package src.tetris;
 
 import org.junit.Test;
-import src.shapes.*;
-import src.utilities.*;
+import src.tetris.shapes.*;
 
 import java.util.Arrays;
 

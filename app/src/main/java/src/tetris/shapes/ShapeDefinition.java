@@ -1,4 +1,4 @@
-package src.shapes;
+package src.tetris.shapes;
 
 public abstract class ShapeDefinition {
     private static final boolean[][] SHAPE_I = {{true, true, true, true},

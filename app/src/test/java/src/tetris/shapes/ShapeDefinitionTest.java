@@ -1,4 +1,4 @@
-package src.shapes;
+package src.tetris.shapes;
 
 import org.junit.Test;
 

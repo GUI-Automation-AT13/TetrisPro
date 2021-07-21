@@ -1,6 +1,10 @@
-package src.utilities;
+package src.ui;
 
-import src.shapes.Shape;
+import src.tetris.shapes.Shape;
+import src.tetris.DirectionType;
+import src.tetris.Game;
+import src.tetris.GameBoard;
+import src.tetris.RandomShape;
 
 import javax.swing.*;
 import javax.swing.border.Border;

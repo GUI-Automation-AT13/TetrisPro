@@ -1,8 +1,6 @@
-package src.shapes;
+package src.tetris.shapes;
 
 import org.junit.Test;
-import src.shapes.Shape;
-import src.shapes.ShapeType;
 
 import static org.junit.Assert.*;
 

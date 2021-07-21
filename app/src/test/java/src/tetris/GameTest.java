@@ -1,12 +1,7 @@
-package src.utilities;
+package src.tetris;
 
 import org.junit.Test;
-import src.shapes.*;
-import src.utilities.DirectionType;
-import src.utilities.Game;
-import src.utilities.GameBoard;
-
-import java.util.Arrays;
+import src.tetris.shapes.*;
 
 import static org.junit.Assert.*;
 

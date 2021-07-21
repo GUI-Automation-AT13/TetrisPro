@@ -1,5 +1,5 @@
-package src.utilities;
-import src.shapes.*;
+package src.tetris;
+import src.tetris.shapes.*;
 
 import java.util.Random;
 

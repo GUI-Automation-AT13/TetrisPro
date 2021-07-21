@@ -1,6 +1,5 @@
-package src.utilities;
-import src.shapes.*;
-import src.utilities.*;
+package src.tetris;
+import src.tetris.shapes.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

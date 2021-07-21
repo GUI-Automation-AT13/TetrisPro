@@ -1,4 +1,4 @@
-package src.shapes;
+package src.tetris.shapes;
 
 public class Shape  {
     private int xPosition;

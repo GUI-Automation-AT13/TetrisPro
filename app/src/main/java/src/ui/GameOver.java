@@ -1,4 +1,6 @@
-package src.utilities;
+package src.ui;
+import src.tetris.GameBoard;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

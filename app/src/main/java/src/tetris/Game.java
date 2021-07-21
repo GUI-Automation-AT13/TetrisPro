@@ -1,6 +1,6 @@
-package src.utilities;
+package src.tetris;
 
-import src.shapes.*;
+import src.tetris.shapes.*;
 
 public class Game {
     private int xMovement;

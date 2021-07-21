@@ -1,12 +1,12 @@
 src/AppTest.java
  src.AppTest
-src/shapes/ShapeDefinitionTest.java
- src.shapes.ShapeDefinitionTest
-src/utilities/RandomShapeTest.java
- src.utilities.RandomShapeTest
-src/shapes/ShapeTest.java
- src.shapes.ShapeTest
-src/utilities/GameBoardTest.java
- src.utilities.GameBoardTest
-src/utilities/GameTest.java
- src.utilities.GameTest
+src/tetris/GameTest.java
+ src.tetris.GameTest
+src/tetris/shapes/ShapeTest.java
+ src.tetris.shapes.ShapeTest
+src/tetris/RandomShapeTest.java
+ src.tetris.RandomShapeTest
+src/tetris/shapes/ShapeDefinitionTest.java
+ src.tetris.shapes.ShapeDefinitionTest
+src/tetris/GameBoardTest.java
+ src.tetris.GameBoardTest
