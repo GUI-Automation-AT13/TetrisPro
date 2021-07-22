@@ -108,6 +108,18 @@ public class GameTest {
     }
 
     @Test
+    public void selectDirection_ShapeJGameBoardDownMovement_DownLimitNotReached() {
+        Game game = new Game();
+        Shape shape = new Shape(ShapeType.J);
+        for (int i = 0; i < 15; i++) {
+            shape.moveDown();
+        }
+        game.selectDirection(DirectionType.Down,shape);
+        boolean actual = game.getDownLimitReached();
+        assertFalse(actual);
+    }
+
+    @Test
     public void selectDirection_ShapeJGameBoardLeftMovement_XMovement0() {
         Game game = new Game();
         Shape shape = new Shape(ShapeType.J);
@@ -151,6 +163,34 @@ public class GameTest {
         int actual = game.getXMovement();
         int expected = 1;
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void selectDirection_ShapeJGameBoardRotate_RotatedShape() {
+        Game game = new Game();
+        Shape shape = new Shape(ShapeType.J);
+        game.selectDirection(DirectionType.Rotate,shape);
+        boolean[][] expectedShape = {{false, false, true},
+                                    {false, false, true},
+                                    {false, true, true}};
+        assertArrayEquals(expectedShape, shape.getContainer());
+    }
+
+    @Test
+    public void selectDirection_ShapeJGameBoardHoldPosition_SamePosition() {
+        Game game = new Game();
+        Shape shape = new Shape(ShapeType.J);
+        game.selectDirection(DirectionType.Hold,shape);
+        int actual = game.getYMovement();
+        int expected = 0;
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void selectDirection_ShapeJGameBoardInvalidMovement_Exception() {
+        Game game = new Game();
+        Shape shape = new Shape(ShapeType.J);
+        game.selectDirection(DirectionType.valueOf("anything"),shape);
     }
 
     @Test
