@@ -8,6 +8,32 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class GameBoardTest {
+
+    @Test
+    public void setScore_ScoreOf10_Int10() {
+        int expected = 10;
+        GameBoard gameBoard = new GameBoard();
+        gameBoard.setScore(expected);
+        int actual = gameBoard.getScore();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getGameBoardHeight_Height20_Int20() {
+        int expected = 20;
+        GameBoard gameBoard = new GameBoard();
+        int actual = gameBoard.getGameBoardHeight();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getGameBoardHeight_Height10_Int10() {
+        int expected = 10;
+        GameBoard gameBoard = new GameBoard();
+        int actual = gameBoard.getGameBoardWidth();
+        assertEquals(expected, actual);
+    }
+
     @Test
     public void createGameBoardArray_Height2AndWidth4_arrayOf2x4() {
         GameBoard gameBoard = new GameBoard();
@@ -95,6 +121,19 @@ public class GameBoardTest {
         boolean[][] actual = gameBoard.getGameBoardArray();
         boolean[][] expected = new boolean[20][10];
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void updateLinesOnGameBoard_GameBoardArray_GameScore() {
+        int expected = 4;
+        GameBoard gameBoard = new GameBoard();
+        boolean[][] array = createArray(1,10);
+        gameBoard.setGameBoardArray(0, 1, array);
+        gameBoard.setGameBoardArray(0, 10, array);
+        gameBoard.setGameBoardArray(0, 18, array);
+        gameBoard.setGameBoardArray(0, 19, array);
+        gameBoard.updateLinesOnGameBoard();
+        assertEquals(expected, gameBoard.getScore());
     }
 
     /**
