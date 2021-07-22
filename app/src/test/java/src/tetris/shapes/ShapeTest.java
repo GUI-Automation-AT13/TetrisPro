@@ -52,6 +52,7 @@ public class ShapeTest {
         }
         assertEquals(19, shapeI.getyPosition());
     }
+
     @Test
     public void moveDown_moveShapeS25timesFromY0_y18() {
         Shape shapeI = new Shape(ShapeType.S);
@@ -76,8 +77,8 @@ public class ShapeTest {
         shapeT.rotate();
         boolean[][] actual = shapeT.getContainer();
         boolean[][] expected = {{false, false, true},
-                                {false, true, true},
-                                {false, false, true}};
+                {false, true, true},
+                {false, false, true}};
         assertArrayEquals(expected, actual);
     }
 
@@ -87,8 +88,8 @@ public class ShapeTest {
         shapeS.rotate();
         boolean[][] actual = shapeS.getContainer();
         boolean[][] expected = {{false, true, false},
-                                {false, true, true},
-                                {false, false, true}};
+                {false, true, true},
+                {false, false, true}};
         assertArrayEquals(expected, actual);
     }
 
@@ -99,8 +100,8 @@ public class ShapeTest {
         shapeS.rotate();
         boolean[][] actual = shapeS.getContainer();
         boolean[][] expected = {{false, false, false},
-                                {false, true, true},
-                                {true, true, false}};
+                {false, true, true},
+                {true, true, false}};
         assertArrayEquals(expected, actual);
     }
 
@@ -112,8 +113,8 @@ public class ShapeTest {
         shapeS.rotate();
         boolean[][] actual = shapeS.getContainer();
         boolean[][] expected = {{true, false, false},
-                                {true, true, false},
-                                {false, true, false}};
+                {true, true, false},
+                {false, true, false}};
         assertArrayEquals(expected, actual);
     }
 
@@ -126,8 +127,8 @@ public class ShapeTest {
         shapeS.rotate();
         boolean[][] actual = shapeS.getContainer();
         boolean[][] expected = {{false, true, true},
-                                {true, true, false},
-                                {false, false, false}};
+                {true, true, false},
+                {false, false, false}};
         assertArrayEquals(expected, actual);
     }
 
@@ -144,7 +145,7 @@ public class ShapeTest {
         Shape shape = new Shape(ShapeType.I);
         shape.rotate();
         boolean[][] actual = shape.getPartialShape();
-        boolean[][] expected = {{true},{true},{true},{true}};
+        boolean[][] expected = {{true}, {true}, {true}, {true}};
         assertArrayEquals(expected, actual);
     }
 
@@ -165,7 +166,67 @@ public class ShapeTest {
         shape.rotate();
         shape.rotate();
         boolean[][] actual = shape.getPartialShape();
-        boolean[][] expected = {{true},{true},{true},{true}};
+        boolean[][] expected = {{true}, {true}, {true}, {true}};
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void moveLeft_changePositionX1_x0() {
+        Shape shapeI = new Shape(ShapeType.S);
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        shapeI.moveLeft();
+        assertEquals(0, shapeI.getxPosition());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShape() {
+        Shape shape = new Shape(ShapeType.I);
+        shape.rotate();
+        shape.rotate();
+        shape.rotate();
+        shape.moveRight();
+        shape.moveRight();
+        shape.moveRight();
+        shape.moveRight();
+        shape.moveRight();
+        shape.moveRight();
+        assertEquals(9, shape.getxPosition());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShapeLeft() {
+        Shape shape = new Shape(ShapeType.L);
+        shape.rotate();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        assertEquals(-1, shape.getxPosition());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShapeLeft2() {
+        Shape shape = new Shape(ShapeType.L);
+        shape.rotate();
+        shape.rotate();
+        shape.rotate();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        shape.moveLeft();
+        assertEquals(0, shape.getxPosition());
     }
 }
