@@ -3,7 +3,7 @@
  */
 package src;
 
-import src.utilities.*;
+import src.ui.TetrisUI;
 
 public class App {
 
