@@ -102,16 +102,12 @@ public class Game {
                 }
                 break;
             case Rotate:
-                if (shape.checkRotation()) {
                     shape.rotate();
-                }
                 break;
             case Hold:
-                System.out.println("Hold Position");
                 break;
             default:
-                System.out.println("Invalid entry");
-                break;
+                throw new IllegalArgumentException("Invalid entry");
         }
     }
 }
