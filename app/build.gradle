@@ -37,8 +37,8 @@ dependencies {
 
 pitest {
     junit5PluginVersion = '0.12'
-    targetClasses = ['src.*']
-    targetTests = ['src.*']
+    targetClasses = ['src.tetris.*']
+    targetTests = ['src.tetris.*']
     threads = 4
     outputFormats = ['XML', 'HTML']
 }
