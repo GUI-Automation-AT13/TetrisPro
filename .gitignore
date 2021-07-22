@@ -29,4 +29,4 @@ gradlew
 gradlew.bat
 gradle
 settings.gradle
-app/build/reports/pitest/
+app/build/
