@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.tetris</a> &gt; <span class="el_source">GameBoard.java</span></div><h1>GameBoard.java</h1><pre class="source lang-java linenums">package src.tetris;
+
+import java.util.Arrays;
+import src.tetris.shapes.*;
+
+public class GameBoard {
+    static final int GAME_BOARD_HEIGHT = 20;
+    static final int GAME_BOARD_WIDTH = 10;
+    private boolean[][] gameBoardArray;
+<span class="nc" id="L10">    public GameBoard() {</span>
+<span class="nc" id="L11">        this.gameBoardArray = createGameBoardArray(GAME_BOARD_HEIGHT, GAME_BOARD_WIDTH);</span>
+<span class="nc" id="L12">    }</span>
+    private int score;
+    /**
+     * Sets the values of the game board array according to a position and an array
+     * @param x initial position on the x axis
+     * @param y initial position on the y axis
+     * @param array the array that contains the values to change
+     */
+    public void setGameBoardArray(final int x, final int y, final boolean[][] array) {
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            for (int j = 0; j &lt; array[i].length; j++) {</span>
+<span class="nc" id="L23">                this.gameBoardArray[i + y][j + x] = array[i][j];</span>
+            }
+        }
+<span class="nc" id="L26">    }</span>
+
+    /**
+     * Sets the values of the game board array according to a position and an array
+     * @param shape that contains the values to change
+     */
+    public void setGameBoardArray(final Shape shape) {
+<span class="nc" id="L33">        int y = shape.getyPosition();</span>
+<span class="nc" id="L34">        int x = shape.getxPosition();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        for (int i = 0; i &lt; shape.getContainer().length - shape.getDownRows(); i++) {</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            for (int j = shape.getLeftColumns(); j &lt; shape.getContainer()[0].length - shape.getRightColumns(); j++) {</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                if (shape.getContainer()[i][j]) {</span>
+<span class="nc" id="L38">                    this.gameBoardArray[i + y][j + x] = shape.getContainer()[i][j];</span>
+                }
+            }
+        }
+<span class="nc" id="L42">    }</span>
+
+    /**
+     * Obtains the game board array
+     * @return the game board array
+     */
+    public boolean[][] getGameBoardArray() {
+<span class="nc" id="L49">        return this.gameBoardArray;</span>
+    }
+
+    /**
+     * Gets a part of the game board array
+     * @param xInitial the initial position on x axis
+     * @param yInitial the initial position on y axis
+     * @param shapeHeight the shape's height
+     * @param shapeWidth the shape's width
+     * @return the partial game board array
+     */
+    public boolean[][] getPartialGameBoardArray(final int xInitial, final int yInitial, final int shapeHeight, final int shapeWidth) {
+<span class="nc" id="L61">        boolean[][] partialArray = new boolean[shapeHeight][shapeWidth];</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        for (int i = 0; i &lt; shapeHeight; i++) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            for (int j = 0; j &lt; shapeWidth; j++) {</span>
+<span class="nc" id="L64">                partialArray[i][j] = gameBoardArray[i + yInitial][j + xInitial];</span>
+            }
+        }
+<span class="nc" id="L67">        return partialArray;</span>
+    }
+
+    /**
+     * Creates the game board array
+     * @param height is the game board height
+     * @param width is the game board width
+     * @return the game board array
+     */
+    public boolean[][] createGameBoardArray(final int height, final int width) {
+<span class="nc" id="L77">        return new boolean[height][width];</span>
+    }
+
+    /**
+     * Sets all the values of a row to false
+     * @param row is the row on the array to set the values
+     */
+    public void cleanRowOnArray(final int row) {
+<span class="nc" id="L85">        Arrays.fill(gameBoardArray[row], false);</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     * Verifies if a certain row is full of a certain value
+     * @param row is the row to be verified
+     * @param arrayValue is the value to check
+     * @return a boolean according to the verification made
+     */
+    public boolean checkFullRow(final int row, final boolean arrayValue) {
+<span class="nc" id="L95">        int valueCounter = 0;</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (int j = 0; j &lt; gameBoardArray[row].length; j++) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            if (gameBoardArray[row][j] == arrayValue) {</span>
+<span class="nc" id="L98">                valueCounter += 1;</span>
+            }
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        return (valueCounter == gameBoardArray[row].length);</span>
+    }
+
+    /**
+     * Moves the lines to the bottom side when empty lines in between
+     */
+    public void adjustLines() {
+<span class="nc" id="L108">        int row = gameBoardArray.length - 1;</span>
+        int emptyRowCounter;
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        while (row &gt;= 0) {</span>
+<span class="nc" id="L111">            emptyRowCounter = 0;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            while (checkFullRow(row, false)) {</span>
+<span class="nc" id="L113">                emptyRowCounter += 1;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                if (row == 0) {</span>
+<span class="nc" id="L115">                    break;</span>
+                } else {
+<span class="nc" id="L117">                    row -= 1;</span>
+                }
+            }
+<span class="nc bnc" id="L120" title="All 4 branches missed.">            if (emptyRowCounter == 0 || row == 0) {</span>
+<span class="nc" id="L121">                row -= 1;</span>
+            } else {
+<span class="nc" id="L123">                boolean[][] newRow = getLineFromGameBoardArray(row);</span>
+<span class="nc" id="L124">                setGameBoardArray(0, row + emptyRowCounter, newRow);</span>
+<span class="nc" id="L125">                cleanRowOnArray(row);</span>
+<span class="nc" id="L126">                row = row + emptyRowCounter - 1;</span>
+<span class="nc" id="L127">            }</span>
+        }
+<span class="nc" id="L129">    }</span>
+
+    /**
+     * Checks full lines on game board and adjust it
+     */
+    public void updateLinesOnGameBoard() {
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (int i = 0; i &lt; gameBoardArray.length; i++) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (checkFullRow(i, true)) {</span>
+<span class="nc" id="L137">                cleanRowOnArray(i);</span>
+<span class="nc" id="L138">                this.score++;</span>
+            }
+        }
+<span class="nc" id="L141">        adjustLines();</span>
+<span class="nc" id="L142">    }</span>
+
+    /**
+     * Gets the full line of the game board array
+     * @param row the row to get
+     * @return the array with the selected line
+     */
+    public boolean[][] getLineFromGameBoardArray(final int row) {
+<span class="nc" id="L150">        boolean[][] line = new boolean[1][gameBoardArray[row].length];</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        for (int j = 0; j &lt; gameBoardArray[row].length; j++) {</span>
+<span class="nc" id="L152">            line[0][j] = gameBoardArray[row][j];</span>
+        }
+<span class="nc" id="L154">        return line;</span>
+    }
+
+    /**
+     * @return the gameBoard Height
+     */
+    public int getGameBoardHeight() {
+<span class="nc" id="L161">        return GAME_BOARD_HEIGHT;</span>
+    }
+
+    /**
+     * @return the gameBoard Width
+     */
+    public int getGameBoardWidth() {
+<span class="nc" id="L168">        return GAME_BOARD_WIDTH;</span>
+    }
+    /**
+     * @return the score of game
+     */
+    public int getScore() {
+<span class="nc" id="L174">        return score;</span>
+    }
+
+    /**
+     *
+     * @param points score of game
+     */
+    public void setScore(final int points) {
+<span class="nc" id="L182">        this.score = points;</span>
+<span class="nc" id="L183">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

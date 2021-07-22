@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.tetris</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package src.tetris;
+
+import src.tetris.shapes.*;
+
+<span class="nc" id="L5">public class Game {</span>
+    private int xMovement;
+    private int yMovement;
+<span class="nc" id="L8">    private boolean downLimitReached = false;</span>
+
+    /**
+     * Gets the yMovement value
+     * @return an int with the value
+     */
+    public int getYMovement() {
+<span class="nc" id="L15">        return yMovement;</span>
+    }
+
+    /**
+     * Gets the downLimitReached value
+     * @return a boolean with the value
+     */
+    public boolean getDownLimitReached() {
+<span class="nc" id="L23">        return downLimitReached;</span>
+    }
+
+    /**
+     * Gets the xMovement value
+     * @return an int with the value
+     */
+    public int getXMovement() {
+<span class="nc" id="L31">        return xMovement;</span>
+    }
+
+    /**
+     * Verifies if the shape collides with the game board array
+     * @param shape the figure to check
+     * @param gameBoard the game board array
+     * @param direction the movement direction to check
+     * @return a boolean with the result
+     */
+    public boolean checkCollision(final Shape shape, final GameBoard gameBoard, final DirectionType direction) {
+<span class="nc" id="L42">        selectDirection(direction, shape);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (downLimitReached) {</span>
+<span class="nc" id="L44">            return true;</span>
+        }
+<span class="nc" id="L46">        int shapeHeight = shape.getPartialShape().length;</span>
+<span class="nc" id="L47">        int shapeWidth = shape.getPartialShape()[0].length;</span>
+<span class="nc" id="L48">        int xInitial = shape.getxPosition() + xMovement + shape.getLeftColumns();</span>
+<span class="nc" id="L49">        int yInitial = shape.getyPosition() + yMovement + shape.getTopRows();</span>
+<span class="nc" id="L50">        boolean[][] matchArray = gameBoard.getPartialGameBoardArray(xInitial, yInitial, shapeHeight, shapeWidth);</span>
+<span class="nc" id="L51">        return compareArrays(matchArray, shape.getPartialShape(), shapeHeight, shapeWidth);</span>
+    }
+
+    /**
+     * Checks if two arrays have a similar value on a same position
+     * @param firstArray to compare
+     * @param secondArray to compare
+     * @param height of the arrays
+     * @param width of the arrays
+     * @return a boolean with the result
+     */
+    public boolean compareArrays(final boolean[][] firstArray, final boolean[][] secondArray, final int height, final int width) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (int i = 0; i &lt; height; i++) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            for (int j = 0; j &lt; width; j++) {</span>
+<span class="nc bnc" id="L65" title="All 4 branches missed.">                if (firstArray[i][j] &amp;&amp; secondArray[i][j]) {</span>
+<span class="nc" id="L66">                    return true;</span>
+                }
+            }
+        }
+<span class="nc" id="L70">        return false;</span>
+    }
+
+    /**
+     * Sets the parameters to check collision on a certain direction
+     * @param direction the shape's current direction
+     * @param shape that is moving
+     */
+    public void selectDirection(final DirectionType direction, final Shape shape) {
+<span class="nc" id="L79">        xMovement = 0;</span>
+<span class="nc" id="L80">        yMovement = 0;</span>
+<span class="nc" id="L81">        downLimitReached = false;</span>
+<span class="nc bnc" id="L82" title="All 6 branches missed.">        switch (direction) {</span>
+            case Left:
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                if (shape.checkLeftLimit()) {</span>
+<span class="nc" id="L85">                    xMovement = 0;</span>
+                } else {
+<span class="nc" id="L87">                    xMovement = -1;</span>
+                }
+<span class="nc" id="L89">                break;</span>
+            case Down:
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                if (shape.checkDownLimit()) {</span>
+<span class="nc" id="L92">                    downLimitReached = true;</span>
+                } else {
+<span class="nc" id="L94">                    yMovement = 1;</span>
+                }
+<span class="nc" id="L96">                break;</span>
+            case Right:
+<span class="nc bnc" id="L98" title="All 2 branches missed.">                if (shape.checkRightLimit()) {</span>
+<span class="nc" id="L99">                    xMovement = 0;</span>
+                } else {
+<span class="nc" id="L101">                    xMovement = 1;</span>
+                }
+<span class="nc" id="L103">                break;</span>
+            case Rotate:
+<span class="nc bnc" id="L105" title="All 2 branches missed.">                if (shape.checkRotation()) {</span>
+<span class="nc" id="L106">                    shape.rotate();</span>
+                }
+                break;
+            case Hold:
+<span class="nc" id="L110">                System.out.println(&quot;Hold Position&quot;);</span>
+<span class="nc" id="L111">                break;</span>
+            default:
+<span class="nc" id="L113">                System.out.println(&quot;Invalid entry&quot;);</span>
+                break;
+        }
+<span class="nc" id="L116">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TetrisUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.ui</a> &gt; <span class="el_source">TetrisUI.java</span></div><h1>TetrisUI.java</h1><pre class="source lang-java linenums">package src.ui;
+
+import src.tetris.shapes.Shape;
+import src.tetris.DirectionType;
+import src.tetris.Game;
+import src.tetris.GameBoard;
+import src.tetris.RandomShape;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.TimerTask;
+import java.util.Timer;
+
+public class TetrisUI extends JFrame implements KeyListener {
+<span class="nc" id="L18">    private GameBoard gameBoard = new GameBoard();</span>
+<span class="nc" id="L19">    private Game game = new Game();</span>
+    private RandomShape randomShape;
+    private Shape shape;
+    private static final int SIZE_IMAGE = 40;
+<span class="nc" id="L23">    private int scaleWidth = gameBoard.getGameBoardWidth();</span>
+<span class="nc" id="L24">    private int scaleHeight = gameBoard.getGameBoardHeight();</span>
+<span class="nc" id="L25">    private int sizeWindowWidth = scaleWidth * SIZE_IMAGE;</span>
+<span class="nc" id="L26">    private int sizeWindowHeight = scaleHeight * SIZE_IMAGE;</span>
+    private static final int SPEED = 300;
+    private static JLabel[][] labelArray;
+    private Timer timer;
+<span class="nc" id="L30">    private final GameOver gameOver = new GameOver();</span>
+    private static final int SAFE_SPACE = 3;
+    private static final int SAFE_ZONE = 8;
+<span class="nc" id="L33">    private boolean gameInCourse = true;</span>
+
+<span class="nc" id="L35">    public TetrisUI() { }</span>
+
+    /**
+     * Method initialize the graphical interface.
+     */
+    public void init() {
+<span class="nc" id="L41">        timer = new Timer();</span>
+<span class="nc" id="L42">        randomShape = new RandomShape();</span>
+<span class="nc" id="L43">        setSize(sizeWindowWidth, sizeWindowHeight);</span>
+<span class="nc" id="L44">        setTitle(&quot;TETRIS&quot;);</span>
+<span class="nc" id="L45">        setLocationRelativeTo(null);</span>
+<span class="nc" id="L46">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L47">        setFocusable(true);</span>
+<span class="nc" id="L48">        labelArray = new JLabel[scaleHeight][scaleWidth];</span>
+<span class="nc" id="L49">        setLayout(new GridLayout(scaleHeight, scaleWidth));</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        for (int row = 0; row &lt; scaleHeight; row++) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            for (int col = 0; col &lt; scaleWidth; col++) {</span>
+<span class="nc" id="L52">                Border border = BorderFactory.createLineBorder(Color.GRAY, 1);</span>
+<span class="nc" id="L53">                JLabel label = new JLabel();</span>
+<span class="nc" id="L54">                label.setName(&quot;Tetris&quot;);</span>
+<span class="nc" id="L55">                label.setOpaque(true);</span>
+<span class="nc" id="L56">                label.setBackground(Color.black);</span>
+<span class="nc" id="L57">                label.setBorder(border);</span>
+<span class="nc" id="L58">                labelArray[row][col] = label;</span>
+<span class="nc" id="L59">                add(label);</span>
+            }
+        }
+<span class="nc" id="L62">        shape();</span>
+<span class="nc" id="L63">        setVisible(true);</span>
+<span class="nc" id="L64">        addKeyListener(this);</span>
+<span class="nc" id="L65">        start();</span>
+<span class="nc" id="L66">    }</span>
+    /**
+     * Method to initialize and show a shape.
+     */
+    public void shape() {
+<span class="nc" id="L71">        shape = randomShape.getShape(randomShape.randomNumberGenerator());</span>
+<span class="nc" id="L72">        updateShape(Color.green);</span>
+<span class="nc" id="L73">    }</span>
+    /**
+     * Refresh the icon of a label where it is our Alien.
+     */
+    public void printShape() {
+<span class="nc" id="L78">        gameBoard.setGameBoardArray(shape);</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * @Override keyTyped.
+     */
+    @Override
+    public void keyTyped(final KeyEvent e) {
+<span class="nc" id="L86">        return;</span>
+    }
+
+    /**
+     * @Override keyPressed.
+     */
+    @Override
+    public void keyPressed(final KeyEvent e) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                if (!game.checkCollision(shape, gameBoard, DirectionType.Right)) {</span>
+<span class="nc" id="L96">                    updateShape(Color.black);</span>
+<span class="nc" id="L97">                    shape.moveRight();</span>
+<span class="nc" id="L98">                    updateShape(Color.green);</span>
+                }
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (e.getKeyCode() == KeyEvent.VK_LEFT) {</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                if (!game.checkCollision(shape, gameBoard, DirectionType.Left)) {</span>
+<span class="nc" id="L103">                    updateShape(Color.black);</span>
+<span class="nc" id="L104">                    shape.moveLeft();</span>
+<span class="nc" id="L105">                    updateShape(Color.green);</span>
+                }
+        }
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (e.getKeyCode() == KeyEvent.VK_DOWN) {</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">            if (!game.checkCollision(shape, gameBoard, DirectionType.Down)) {</span>
+<span class="nc" id="L110">                updateShape(Color.black);</span>
+<span class="nc" id="L111">                shape.moveDown();</span>
+<span class="nc" id="L112">                updateShape(Color.green);</span>
+            }
+        }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (e.getKeyCode() == KeyEvent.VK_UP) {</span>
+<span class="nc" id="L116">            updateShape(Color.black);</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">            if (game.checkCollision(shape, gameBoard, DirectionType.Rotate)) {</span>
+<span class="nc" id="L118">                shape.rotate();</span>
+<span class="nc" id="L119">                shape.rotate();</span>
+<span class="nc" id="L120">                shape.rotate();</span>
+<span class="nc" id="L121">                updateShape(Color.green);</span>
+            }
+        }
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {</span>
+<span class="nc" id="L125">            lose();</span>
+        }
+<span class="nc" id="L127">    }</span>
+
+    /**
+     * @Override keyReleased.
+     */
+    @Override
+    public void keyReleased(final KeyEvent e) {
+<span class="nc" id="L134">        return;</span>
+    }
+
+    /**
+     * Method to initialize timer.
+     */
+    public void start() {
+<span class="nc" id="L141">        TimerTask task = new TimerTask() {</span>
+            @Override
+            public void run() {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">                if (!validSpace()) {</span>
+<span class="nc" id="L145">                    gameInCourse = false;</span>
+<span class="nc" id="L146">                    lose();</span>
+<span class="nc" id="L147">                    repaint();</span>
+                } else {
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                    if (!game.checkCollision(shape, gameBoard, DirectionType.Down)) {</span>
+<span class="nc" id="L150">                        updateShape(Color.black);</span>
+<span class="nc" id="L151">                        shape.moveDown();</span>
+<span class="nc" id="L152">                        updateShape(Color.green);</span>
+                    } else {
+<span class="nc" id="L154">                        gameBoard.setGameBoardArray(shape);</span>
+<span class="nc" id="L155">                        gameBoard.updateLinesOnGameBoard();</span>
+<span class="nc" id="L156">                        updateGameboard();</span>
+<span class="nc" id="L157">                        shape();</span>
+                    }
+                }
+<span class="nc" id="L160">            }</span>
+        };
+<span class="nc" id="L162">        timer.scheduleAtFixedRate(task, 0, SPEED);</span>
+<span class="nc" id="L163">    }</span>
+    /**
+     * updates shape in UI.
+     */
+    public void updateShape(final Color color) {
+<span class="nc" id="L168">        int y = shape.getyPosition();</span>
+<span class="nc" id="L169">        int x = shape.getxPosition();</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        for (int i = 0; i &lt; shape.getContainer().length - shape.getDownRows(); i++) {</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">            for (int j = shape.getLeftColumns(); j &lt; shape.getContainer()[0].length - shape.getRightColumns(); j++) {</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">                if (shape.getContainer()[i][j]) {</span>
+<span class="nc" id="L173">                    updateColorOfLabel(this.labelArray[i + y][j + x], color);</span>
+                }
+            }
+        }
+<span class="nc" id="L177">    }</span>
+
+    /**
+     * changes color of the label to other.
+     */
+    public void updateColorOfLabel(final JLabel label, final Color color) {
+<span class="nc" id="L183">        label.setBackground(color);</span>
+<span class="nc" id="L184">    }</span>
+
+    /**
+     * changes color of the labels of gameboard.
+     */
+    public void updateGameboard() {
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        for (int row = 0; row &lt; scaleHeight; row++) {</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            for (int col = 0; col &lt; scaleWidth; col++) {</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">                if (gameBoard.getGameBoardArray()[row][col]) {</span>
+<span class="nc" id="L193">                    labelArray[row][col].setBackground(Color.red);</span>
+                } else {
+<span class="nc" id="L195">                    labelArray[row][col].setBackground(Color.black);</span>
+                }
+            }
+        }
+<span class="nc" id="L199">    }</span>
+    /**
+     * Calls game over when losing game.
+     */
+    public void lose() {
+<span class="nc" id="L204">        gameOver.showGameOver(this, timer, gameBoard);</span>
+<span class="nc" id="L205">    }</span>
+
+    /**
+     * Method to check if there is enough space to put the shape.
+     */
+    private boolean validSpace() {
+<span class="nc" id="L211">        int count = 0;</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        for (int i = 0; i &lt; 2; i++) {</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">            for (int j = SAFE_SPACE; j &lt; gameBoard.getGameBoardArray()[i].length - SAFE_SPACE; j++) {</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">                if (!gameBoard.getGameBoardArray()[i][j]) {</span>
+<span class="nc" id="L215">                    count++;</span>
+                }
+            }
+        }
+<span class="nc bnc" id="L219" title="All 2 branches missed.">        return count == SAFE_ZONE;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

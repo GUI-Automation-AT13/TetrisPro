@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RandomShape.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.tetris</a> &gt; <span class="el_source">RandomShape.java</span></div><h1>RandomShape.java</h1><pre class="source lang-java linenums">package src.tetris;
+import src.tetris.shapes.*;
+
+import java.util.Random;
+
+<span class="fc" id="L6">public class RandomShape {</span>
+    private static final int MAX_RANDOM = 7;
+    private static final int SHAPE_I_INT = 0;
+    private static final int SHAPE_J_INT = 1;
+    private static final int SHAPE_L_INT = 2;
+    private static final int SHAPE_O_INT = 3;
+    private static final int SHAPE_S_INT = 4;
+    private static final int SHAPE_T_INT = 5;
+
+    /**
+     * Generates a class depending on a random number.
+     * @return A class of shape.
+     */
+    public Shape getShape(final int random) {
+<span class="nc" id="L20">        int randomNumber = random;</span>
+<span class="nc bnc" id="L21" title="All 7 branches missed.">        switch (randomNumber) {</span>
+            case SHAPE_I_INT:
+<span class="nc" id="L23">                return new Shape(ShapeType.I);</span>
+            case SHAPE_J_INT:
+<span class="nc" id="L25">                return new Shape(ShapeType.J);</span>
+            case SHAPE_L_INT:
+<span class="nc" id="L27">                return new Shape(ShapeType.L);</span>
+            case SHAPE_O_INT:
+<span class="nc" id="L29">                return new Shape(ShapeType.O);</span>
+            case SHAPE_S_INT:
+<span class="nc" id="L31">                return new Shape(ShapeType.S);</span>
+            case SHAPE_T_INT:
+<span class="nc" id="L33">                return new Shape(ShapeType.T);</span>
+            default:
+<span class="nc" id="L35">                return new Shape(ShapeType.Z);</span>
+        }
+    }
+    /**
+     * Generates a random number
+     * @return a random number
+     */
+    public int randomNumberGenerator() {
+<span class="fc" id="L43">        Random random = new Random();</span>
+<span class="fc" id="L44">        int randomNumber = random.nextInt(MAX_RANDOM);</span>
+<span class="fc" id="L45">        return randomNumber;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

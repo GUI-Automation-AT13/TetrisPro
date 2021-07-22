@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Shape.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.tetris.shapes</a> &gt; <span class="el_source">Shape.java</span></div><h1>Shape.java</h1><pre class="source lang-java linenums">package src.tetris.shapes;
+
+public class Shape  {
+    private int xPosition;
+    private int yPosition;
+    static final int X_POS_DEFAULT = 3;
+    static final int Y_POS_DEFAULT = 0;
+    static final int HOR_LIMIT_DEFAULT = 10;
+    static final int VER_LIMIT_DEFAULT = 20;
+    private boolean[][] container;
+    private int horizontalLimit;
+    private int verticalLimit;
+    private int rightColumns;
+    private int leftColumns;
+    private int downRows;
+    private int topRows;
+
+<span class="nc" id="L18">    public Shape(final ShapeType type) {</span>
+<span class="nc" id="L19">        xPosition = X_POS_DEFAULT;</span>
+<span class="nc" id="L20">        yPosition = Y_POS_DEFAULT;</span>
+<span class="nc" id="L21">        horizontalLimit = HOR_LIMIT_DEFAULT;</span>
+<span class="nc" id="L22">        verticalLimit = VER_LIMIT_DEFAULT;</span>
+<span class="nc" id="L23">        this.container = ShapeDefinition.generate(type);</span>
+<span class="nc" id="L24">        updateColumnsReviewer();</span>
+<span class="nc" id="L25">    }</span>
+
+    /**
+     * Increases xPosition in one.
+     * In order to represent movement to the right.
+     */
+    public void moveRight() {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (xPosition &lt; horizontalLimit - container.length + rightColumns) {</span>
+<span class="nc" id="L33">            xPosition += 1;</span>
+        }
+<span class="nc" id="L35">    }</span>
+    /**
+     * @return .
+     */
+    public int getDownRows() {
+<span class="nc" id="L40">        return downRows;</span>
+    }
+    /**
+     * @return an integer with the number of columns to right
+     */
+    public int getRightColumns() {
+<span class="nc" id="L46">        return rightColumns;</span>
+    }
+    /**
+     * @return an integer with the number of columns to left.
+     */
+    public int getLeftColumns() {
+<span class="nc" id="L52">        return leftColumns;</span>
+    }
+
+    /**
+     *
+     * @return an integer with the number of columns from above
+     */
+    public int getTopRows() {
+<span class="nc" id="L60">        return topRows; }</span>
+
+    /**
+     * @return a boolean that checks the lower bound
+     */
+    public boolean checkDownLimit() {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        return yPosition == verticalLimit - container.length + downRows;</span>
+    }
+    /**
+     * @return a boolean that checks the right limit
+     */
+    public boolean checkRightLimit() {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        return xPosition == horizontalLimit - container.length + rightColumns;</span>
+    }
+
+    /**
+     * @return a boolean that checks the right limit
+     */
+    public boolean checkLeftLimit() {
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        return xPosition + leftColumns == 0;</span>
+    }
+
+    /**
+     * Verifies if rotation is possible.
+     * @return the result
+     */
+    public boolean checkRotation() {
+<span class="nc bnc" id="L87" title="All 6 branches missed.">        if (xPosition &lt; 0</span>
+                || xPosition &gt; HOR_LIMIT_DEFAULT - container.length
+                || yPosition &gt; VER_LIMIT_DEFAULT - container.length) {
+<span class="nc" id="L90">            return false;</span>
+        }
+<span class="nc" id="L92">        return true;</span>
+    }
+
+    /**
+     * Decreases xPosition in one.
+     * In order to represent movement to the left
+     */
+    public void moveLeft() {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (xPosition &gt; 0 - leftColumns) {</span>
+<span class="nc" id="L101">            xPosition -= 1;</span>
+        }
+<span class="nc" id="L103">    }</span>
+
+    /**
+     * Increases yPosition in one.
+     * In order to represent downwards movement
+     */
+    public void moveDown() {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        if (yPosition &lt; verticalLimit - container.length + downRows) {</span>
+<span class="nc" id="L111">            yPosition += 1;</span>
+        }
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * @return An int that is xPosition.
+     */
+    public int getxPosition() {
+<span class="nc" id="L119">        return xPosition;</span>
+    }
+
+    /**
+     * @return An int that is yPosition.
+     */
+    public int getyPosition() {
+<span class="nc" id="L126">        return yPosition;</span>
+    }
+
+    /**
+     * @return An arrray that is container of shape.
+     */
+    public boolean[][] getContainer() {
+<span class="nc" id="L133">        return container;</span>
+    }
+
+    /**
+     * Gets the solid part of the shape
+     * @return the shape without empty row or column
+     */
+    public boolean[][] getPartialShape() {
+<span class="nc" id="L141">        int height = container.length;</span>
+<span class="nc" id="L142">        int width = container[0].length;</span>
+<span class="nc" id="L143">        int xInit = 0;</span>
+<span class="nc" id="L144">        int yInit = 0;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        if (getLeftColumns() &gt; 0) {</span>
+<span class="nc" id="L146">            width = container[0].length - leftColumns;</span>
+<span class="nc" id="L147">            xInit = leftColumns;</span>
+        }
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        if (getTopRows() &gt; 0) {</span>
+<span class="nc" id="L150">            height = container.length - topRows;</span>
+<span class="nc" id="L151">            yInit = topRows;</span>
+        }
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if (getRightColumns() &gt; 0) {</span>
+<span class="nc" id="L154">            width = container[0].length - rightColumns;</span>
+        }
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (getDownRows() &gt; 0) {</span>
+<span class="nc" id="L157">            height = container.length - downRows;</span>
+        }
+<span class="nc" id="L159">        boolean[][] partialArray = new boolean[height][width];</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">        for (int i = 0; i &lt; height; i++) {</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">            for (int j = 0; j &lt; width; j++) {</span>
+<span class="nc" id="L162">                partialArray[i][j] = container[i + yInit][j + xInit];</span>
+            }
+        }
+<span class="nc" id="L165">        return partialArray;</span>
+    }
+
+    /**
+     * assigns values to container of shape.
+     */
+    public void setContainer(final boolean[][] cont) {
+<span class="nc" id="L172">        container = cont;</span>
+<span class="nc" id="L173">    }</span>
+
+    /**
+     * calculates free columns from right.
+     * @return An integer that represents how many free columns shape container has.
+     */
+    public int reviewFromRight(final boolean[][] mat) {
+<span class="nc" id="L180">        boolean rightColumnEmpty = true;</span>
+<span class="nc" id="L181">        int columnCounter = 0;</span>
+<span class="nc" id="L182">        int j = mat[0].length - 1;</span>
+<span class="nc bnc" id="L183" title="All 4 branches missed.">        while (rightColumnEmpty &amp;&amp; j &gt;= 0) {</span>
+<span class="nc" id="L184">            int i = 0;</span>
+<span class="nc bnc" id="L185" title="All 4 branches missed.">            while (rightColumnEmpty &amp;&amp; i &lt; mat.length) {</span>
+<span class="nc bnc" id="L186" title="All 4 branches missed.">                rightColumnEmpty = rightColumnEmpty &amp;&amp; !mat[i][j];</span>
+<span class="nc" id="L187">                i++;</span>
+            }
+<span class="nc bnc" id="L189" title="All 2 branches missed.">            if (rightColumnEmpty) {</span>
+<span class="nc" id="L190">                columnCounter++;</span>
+            }
+<span class="nc" id="L192">            j--;</span>
+<span class="nc" id="L193">        }</span>
+<span class="nc" id="L194">        return columnCounter;</span>
+    }
+
+    /**
+     * calculates free columns from left.
+     * @return An integer that represents how many free columns shape container has.
+     */
+    public int reviewFromLeft(final boolean[][] mat) {
+<span class="nc" id="L202">        boolean leftColumnEmpty = true;</span>
+<span class="nc" id="L203">        int columnCounter = 0;</span>
+<span class="nc" id="L204">        int j = 0;</span>
+<span class="nc bnc" id="L205" title="All 4 branches missed.">        while (leftColumnEmpty &amp;&amp; j &lt; mat[0].length) {</span>
+<span class="nc" id="L206">            int i = 0;</span>
+<span class="nc bnc" id="L207" title="All 4 branches missed.">            while (leftColumnEmpty &amp;&amp; i &lt; mat.length) {</span>
+<span class="nc bnc" id="L208" title="All 4 branches missed.">                leftColumnEmpty = leftColumnEmpty &amp;&amp; !mat[i][j];</span>
+<span class="nc" id="L209">                i++;</span>
+            }
+<span class="nc bnc" id="L211" title="All 2 branches missed.">            if (leftColumnEmpty) {</span>
+<span class="nc" id="L212">                columnCounter++;</span>
+            }
+<span class="nc" id="L214">            j++;</span>
+<span class="nc" id="L215">        }</span>
+<span class="nc" id="L216">        return columnCounter;</span>
+    }
+
+    /**
+     * calculates free rows from down.
+     * @return An integer that represents how many free rows shape container has.
+     */
+    public int reviewFromDown(final boolean[][] mat) {
+<span class="nc" id="L224">        boolean downRowEmpty = true;</span>
+<span class="nc" id="L225">        int rowCounter = 0;</span>
+<span class="nc" id="L226">        int i = mat[0].length - 1;</span>
+<span class="nc bnc" id="L227" title="All 4 branches missed.">        while (downRowEmpty &amp;&amp; i &gt;= 0) {</span>
+<span class="nc" id="L228">            int j = 0;</span>
+<span class="nc bnc" id="L229" title="All 4 branches missed.">            while (downRowEmpty &amp;&amp; j &lt; mat.length) {</span>
+<span class="nc bnc" id="L230" title="All 4 branches missed.">                downRowEmpty = downRowEmpty &amp;&amp; !mat[i][j];</span>
+<span class="nc" id="L231">                j++;</span>
+            }
+<span class="nc bnc" id="L233" title="All 2 branches missed.">            if (downRowEmpty) {</span>
+<span class="nc" id="L234">                rowCounter++;</span>
+            }
+<span class="nc" id="L236">            i--;</span>
+<span class="nc" id="L237">        }</span>
+<span class="nc" id="L238">        return rowCounter;</span>
+    }
+
+
+    /**
+     * calculates free rows from down.
+     * @return An integer that represents how many free rows shape container has.
+     */
+    public int reviewFromUp(final boolean[][] mat) {
+<span class="nc" id="L247">        boolean topRowEmpty = true;</span>
+<span class="nc" id="L248">        int rowCounter = 0;</span>
+<span class="nc" id="L249">        int i = 0;</span>
+<span class="nc bnc" id="L250" title="All 4 branches missed.">        while (topRowEmpty &amp;&amp; i &lt; mat.length) {</span>
+<span class="nc" id="L251">            int j = 0;</span>
+<span class="nc bnc" id="L252" title="All 4 branches missed.">            while (topRowEmpty &amp;&amp; j &lt; mat.length) {</span>
+<span class="nc bnc" id="L253" title="All 4 branches missed.">                topRowEmpty = topRowEmpty &amp;&amp; !mat[i][j];</span>
+<span class="nc" id="L254">                j++;</span>
+            }
+<span class="nc bnc" id="L256" title="All 2 branches missed.">            if (topRowEmpty) {</span>
+<span class="nc" id="L257">                rowCounter++;</span>
+            }
+<span class="nc" id="L259">            i++;</span>
+<span class="nc" id="L260">        }</span>
+<span class="nc" id="L261">        return rowCounter;</span>
+    }
+
+    /**
+     * rotate the matrix.
+     * @return An array of boolean with the rotate form of figure.
+     */
+    public void rotate() {
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (checkRightLimit()) {</span>
+<span class="nc" id="L270">            xPosition -= rightColumns;</span>
+        }
+<span class="nc bnc" id="L272" title="All 2 branches missed.">        if (checkLeftLimit()) {</span>
+<span class="nc" id="L273">            xPosition += leftColumns;</span>
+        }
+<span class="nc bnc" id="L275" title="All 2 branches missed.">        if (checkDownLimit()) {</span>
+<span class="nc" id="L276">            yPosition -= downRows;</span>
+        }
+<span class="nc" id="L278">        boolean[][] rotatedMatrix = new boolean[container.length][container.length];</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">        for (int i = 0; i &lt; rotatedMatrix.length; i++) {</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">            for (int j = 0; j &lt; rotatedMatrix.length; j++) {</span>
+<span class="nc" id="L281">                rotatedMatrix[i][rotatedMatrix.length - 1 - j] = container[j][i];</span>
+            }
+        }
+<span class="nc" id="L284">        setContainer(rotatedMatrix);</span>
+<span class="nc" id="L285">        updateColumnsReviewer();</span>
+<span class="nc" id="L286">    }</span>
+
+    /**
+     * does column controllers are updated.
+     */
+    public void updateColumnsReviewer() {
+<span class="nc" id="L292">        rightColumns = reviewFromRight(container);</span>
+<span class="nc" id="L293">        leftColumns = reviewFromLeft(container);</span>
+<span class="nc" id="L294">        downRows = reviewFromDown(container);</span>
+<span class="nc" id="L295">        topRows = reviewFromUp(container);</span>
+<span class="nc" id="L296">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

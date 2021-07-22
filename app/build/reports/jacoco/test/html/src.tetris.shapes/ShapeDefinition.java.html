@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShapeDefinition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">src.tetris.shapes</a> &gt; <span class="el_source">ShapeDefinition.java</span></div><h1>ShapeDefinition.java</h1><pre class="source lang-java linenums">package src.tetris.shapes;
+
+<span class="nc" id="L3">public abstract class ShapeDefinition {</span>
+<span class="nc" id="L4">    private static final boolean[][] SHAPE_I = {{true, true, true, true},</span>
+                                                {false, false, false, false},
+                                                {false, false, false, false},
+                                                {false, false, false, false}};
+<span class="nc" id="L8">    private static final boolean[][] SHAPE_J = {{true, true, true},</span>
+                                                 {false, false, true},
+                                                 {false, false, false}};
+<span class="nc" id="L11">    private static final boolean[][] SHAPE_T = {{true, true, true},</span>
+                                                {false, true, false},
+                                                {false, false, false}};
+<span class="nc" id="L14">    private static final boolean[][] SHAPE_S = {{false, true, true},</span>
+                                                {true, true, false},
+                                                {false, false, false}};
+<span class="nc" id="L17">    private static final boolean[][] SHAPE_Z = {{true, true, false},</span>
+                                                {false, true, true},
+                                                {false, false, false}};
+<span class="nc" id="L20">    private static final boolean[][] SHAPE_L = {{true, true, true},</span>
+                                                {true, false, false},
+                                                {false, false, false}};
+<span class="nc" id="L23">    private static final boolean[][] SHAPE_O = {{true, true},</span>
+                                                {true, true}};
+
+   public static boolean[][] generate(final ShapeType type) {
+<span class="nc bnc" id="L27" title="All 7 branches missed.">       switch (type) {</span>
+           case I:
+<span class="nc" id="L29">               return SHAPE_I;</span>
+           case T:
+<span class="nc" id="L31">               return SHAPE_T;</span>
+           case L:
+<span class="nc" id="L33">               return SHAPE_L;</span>
+           case J:
+<span class="nc" id="L35">               return SHAPE_J;</span>
+           case S:
+<span class="nc" id="L37">               return SHAPE_S;</span>
+           case Z:
+<span class="nc" id="L39">               return SHAPE_Z;</span>
+           default:
+<span class="nc" id="L41">               return SHAPE_O;</span>
+       }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

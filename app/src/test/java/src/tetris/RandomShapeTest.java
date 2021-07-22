@@ -54,4 +54,43 @@ public class RandomShapeTest {
         Shape shapeZ = new Shape(ShapeType.Z);
         assertEquals(shapeZ.getClass(),randomShape.getShape(6).getClass());
     }
+
+    @Test
+    public void randomNumberGenerator_MaxRange_ValuesUnderMaxRange() {
+        RandomShape randomShape = new RandomShape();
+        int max = 0;
+        for (int i = 0; i < 1000000; i++) {
+            int random = randomShape.randomNumberGenerator();
+            if (max < random) {
+                max = random;
+            }
+        }
+        assertTrue(max <= 7);
+    }
+
+    @Test
+    public void randomNumberGenerator_MinRange_ValuesOverMinRange() {
+        RandomShape randomShape = new RandomShape();
+        int min = 10;
+        for (int i = 0; i < 1000000; i++) {
+            int random = randomShape.randomNumberGenerator();
+            if (min < random) {
+                min = random;
+            }
+        }
+        assertTrue(min >= 0);
+    }
+
+    @Test
+    public void randomNumberGenerator_SingleValue_ValuesInRange() {
+        RandomShape randomShape = new RandomShape();
+        int zeroCount = 0;
+        for (int i = 0; i < 1000000; i++) {
+            int random = randomShape.randomNumberGenerator();
+            if (random == 0) {
+                zeroCount++;
+            }
+        }
+        assertFalse(zeroCount == 1000000);
+    }
 }

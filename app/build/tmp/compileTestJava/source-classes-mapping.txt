@@ -4,9 +4,9 @@ src/tetris/GameTest.java
  src.tetris.GameTest
 src/tetris/shapes/ShapeTest.java
  src.tetris.shapes.ShapeTest
-src/tetris/RandomShapeTest.java
- src.tetris.RandomShapeTest
-src/tetris/shapes/ShapeDefinitionTest.java
- src.tetris.shapes.ShapeDefinitionTest
 src/tetris/GameBoardTest.java
  src.tetris.GameBoardTest
+src/tetris/shapes/ShapeDefinitionTest.java
+ src.tetris.shapes.ShapeDefinitionTest
+src/tetris/RandomShapeTest.java
+ src.tetris.RandomShapeTest
