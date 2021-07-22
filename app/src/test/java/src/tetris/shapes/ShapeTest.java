@@ -173,15 +173,9 @@ public class ShapeTest {
     @Test
     public void moveLeft_changePositionX1_x0() {
         Shape shapeI = new Shape(ShapeType.S);
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
-        shapeI.moveLeft();
+        for (int i = 0; i < 10; i++) {
+            shapeI.moveLeft();
+        }
         assertEquals(0, shapeI.getxPosition());
     }
 
@@ -191,12 +185,9 @@ public class ShapeTest {
         shape.rotate();
         shape.rotate();
         shape.rotate();
-        shape.moveRight();
-        shape.moveRight();
-        shape.moveRight();
-        shape.moveRight();
-        shape.moveRight();
-        shape.moveRight();
+        for (int i = 0; i < 6; i++) {
+            shape.moveRight();
+        }
         assertEquals(9, shape.getxPosition());
     }
 
@@ -204,13 +195,9 @@ public class ShapeTest {
     public void getPartialShape_ShapeIRotatedShapeLeft() {
         Shape shape = new Shape(ShapeType.L);
         shape.rotate();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
+        for (int i = 0; i < 7; i++) {
+            shape.moveLeft();
+        }
         assertEquals(-1, shape.getxPosition());
     }
 
@@ -220,13 +207,40 @@ public class ShapeTest {
         shape.rotate();
         shape.rotate();
         shape.rotate();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
-        shape.moveLeft();
+        for (int i = 0; i < 7; i++) {
+            shape.moveLeft();
+        }
         assertEquals(0, shape.getxPosition());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShapeLeftFalse() {
+        Shape shape = new Shape(ShapeType.L);
+        shape.rotate();
+        for (int i = 0; i < 7; i++) {
+            shape.moveLeft();
+        }
+        assertFalse(shape.checkRotation());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShapeRightFalse() {
+        Shape shape = new Shape(ShapeType.L);
+        shape.rotate();
+        shape.rotate();
+        shape.rotate();
+        for (int i = 0; i < 7; i++) {
+            shape.moveRight();
+        }
+        assertFalse(shape.checkRotation());
+    }
+
+    @Test
+    public void getPartialShape_ShapeIRotatedShapeDownFalse() {
+        Shape shape = new Shape(ShapeType.I);
+        for (int i = 0; i < 17; i++) {
+            shape.moveDown();
+        }
+        assertFalse(shape.checkRotation());
     }
 }

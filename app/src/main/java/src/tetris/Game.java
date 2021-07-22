@@ -102,7 +102,9 @@ public class Game {
                 }
                 break;
             case Rotate:
+                if (shape.checkRotation()) {
                     shape.rotate();
+                }
                 break;
             case Hold:
                 break;
